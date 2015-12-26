@@ -17,3 +17,6 @@ open your broswer and goto
 1. http://tool.dev/pi.php to check phpinfo  
 2. http://tool.dev/adminer.php to mysql web gui (provided by https://www.adminer.org/)  
 3. http://app.dev to your php project (web root is set to "app/public/", you can change it in "nginx/conf.d/vhosts.conf")  
+
+# mysql
+root password is empty
