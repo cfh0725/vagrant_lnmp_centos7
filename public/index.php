@@ -1,0 +1,2 @@
+<?php
+It works!
