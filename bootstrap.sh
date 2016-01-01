@@ -16,6 +16,13 @@ systemctl start nfs-server
 yum install -y mariadb-server
 systemctl enable mariadb
 systemctl start mariadb
+
+# mysql
+#rpm -ivh http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+#yum install -y mysql-community-server
+#systemctl enable mysqld
+#systemctl start mysqld
+
 mysql -u root <<-EOF
 UPDATE mysql.user SET Password=PASSWORD('') WHERE User='root';
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
@@ -26,13 +33,13 @@ FLUSH PRIVILEGES;
 EOF
 
 # php 5.6
-#yum install -y php56u php56u-cli php56u-fpm php56u-gd php56u-mcrypt php56u-mbstring php56u-mysqlnd php56u-pdo php56u-pgsql php56u-xml
+#yum install -y php56u-cli php56u-fpm php56u-gd php56u-json php56u-mbstring php56u-mcrypt php56u-mysqlnd php56u-opcache php56u-pdo php56u-pgsql php56u-xml
 #systemctl enable php-fpm
 #systemctl start php-fpm
 
 # php 7
 rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-yum --enablerepo=remi install -y php70-php-cli php70-php-fpm php70-php-gd php70-php-json php70-php-mbstring php70-php-mcrypt php70-php-mysqlnd php70-php-opcache php70-php-pdo
+yum --enablerepo=remi install -y php70-php-cli php70-php-fpm php70-php-gd php70-php-json php70-php-mbstring php70-php-mcrypt php70-php-mysqlnd php70-php-opcache php70-php-pdo php70-php-pgsql php70-php-xml php70-php-pecl-zip
 systemctl enable php70-php-fpm
 systemctl start php70-php-fpm
 
