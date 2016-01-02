@@ -35,6 +35,7 @@ EOF
 
 # php 5.6
 #yum install -y php56u-cli php56u-fpm php56u-gd php56u-json php56u-mbstring php56u-mcrypt php56u-mysqlnd php56u-opcache php56u-pdo php56u-pgsql php56u-xml
+#sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /etc/php-fpm.d/www.conf
 #systemctl enable php-fpm
 #systemctl start php-fpm
 
