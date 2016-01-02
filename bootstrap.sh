@@ -1,13 +1,14 @@
 #!/bin/bash
 
+# add yum repo
 rpm -Uvh http://download.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -Uvh https://dl.iuscommunity.org/pub/ius/stable/CentOS/7/x86_64/ius-release-1.0-14.ius.centos7.noarch.rpm
+rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
-# update
 yum update -y
 yum upgrade -y
 
-# utilities
+# nfs
 yum install -y nfs-utils
 systemctl enable nfs-server
 systemctl start nfs-server
@@ -38,10 +39,13 @@ EOF
 #systemctl start php-fpm
 
 # php 7
-rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 yum --enablerepo=remi install -y php70-php-cli php70-php-fpm php70-php-gd php70-php-json php70-php-mbstring php70-php-mcrypt php70-php-mysqlnd php70-php-opcache php70-php-pdo php70-php-pgsql php70-php-xml php70-php-pecl-zip
 systemctl enable php70-php-fpm
 systemctl start php70-php-fpm
+
+# composer
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
 
 # nginx
 yum install -y nginx
@@ -60,3 +64,7 @@ yum install -y vim
 sed -i -e "\$a\ " /etc/vimrc
 sed -i -e "\$asyntax on" /etc/vimrc
 sed -i -e "\$aset nu" /etc/vimrc
+
+# utilities
+yum install -y wget git
+
