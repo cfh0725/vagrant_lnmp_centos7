@@ -19,15 +19,15 @@ systemctl enable nfs-server
 systemctl start nfs-server
 
 # mariadb
-yum install -y mariadb-server
-systemctl enable mariadb
-systemctl start mariadb
+#yum install -y mariadb-server
+#systemctl enable mariadb
+#systemctl start mariadb
 
 # mysql
-#rpm -ivh http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
-#yum install -y mysql-community-server
-#systemctl enable mysqld
-#systemctl start mysqld
+rpm -ivh http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+yum install -y mysql-community-server
+systemctl enable mysqld
+systemctl start mysqld
 
 mysql -u root <<-EOF
 UPDATE mysql.user SET Password=PASSWORD('') WHERE User='root';
@@ -39,10 +39,10 @@ FLUSH PRIVILEGES;
 EOF
 
 # php 5.6
-#yum install -y php56u-cli php56u-fpm php56u-gd php56u-json php56u-mbstring php56u-mcrypt php56u-mysqlnd php56u-opcache php56u-pdo php56u-pgsql php56u-xml
-#sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /etc/php-fpm.d/www.conf
-#systemctl enable php-fpm
-#systemctl start php-fpm
+yum install -y php56u-cli php56u-fpm php56u-gd php56u-json php56u-mbstring php56u-mcrypt php56u-mysqlnd php56u-opcache php56u-pdo php56u-pgsql php56u-xml
+sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /etc/php-fpm.d/www.conf
+systemctl enable php-fpm
+systemctl start php-fpm
 
 # php 7
 yum --enablerepo=remi install -y php70-php-cli php70-php-fpm php70-php-gd php70-php-json php70-php-mbstring php70-php-mcrypt php70-php-mysqlnd php70-php-opcache php70-php-pdo php70-php-pgsql php70-php-xml php70-php-pecl-zip
