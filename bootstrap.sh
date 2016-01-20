@@ -8,6 +8,11 @@ rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 yum update -y
 yum upgrade -y
 
+# yum nightly update
+yum install -y yum-cron
+systemctl enable yum-cron
+systemctl start yum-cron
+
 # nfs
 yum install -y nfs-utils
 systemctl enable nfs-server
