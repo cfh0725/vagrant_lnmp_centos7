@@ -62,7 +62,7 @@ systemctl enable nginx
 systemctl start nginx
 
 #redis
-sudo yum install -y redis
+yum install -y redis
 systemctl enable redis
 systemctl start redis
 
