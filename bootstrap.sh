@@ -61,6 +61,11 @@ sed -i "s/sendfile[ ][ ]*on/sendfile off/" /etc/nginx/nginx.conf
 systemctl enable nginx
 systemctl start nginx
 
+#redis
+sudo yum install -y redis
+systemctl enable redis
+systemctl start redis
+
 # firewall
 systemctl disable firewalld
 systemctl stop firewalld
