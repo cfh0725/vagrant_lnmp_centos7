@@ -1,60 +1,51 @@
 #!/bin/bash
 
 # add yum repo
-rpm -Uvh http://download.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-rpm -Uvh https://dl.iuscommunity.org/pub/ius/stable/CentOS/7/x86_64/ius-release-1.0-14.ius.centos7.noarch.rpm
-rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+yum install epel-release -y
+yum install https://centos7.iuscommunity.org/ius-release.rpm -y
 
 yum update -y
 yum upgrade -y
 
-# yum nightly update
-yum install -y yum-cron
-systemctl enable yum-cron
-systemctl start yum-cron
-
 # nfs
-yum install -y nfs-utils
+yum install nfs-utils -y
 systemctl enable nfs-server
 systemctl start nfs-server
 
 # mariadb
-#yum install -y mariadb-server
+#yum install mariadb-server -y
 #systemctl enable mariadb
 #systemctl start mariadb
 
 # mysql
-rpm -ivh http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
-yum install -y mysql-community-server
+rpm -ivh https://repo.mysql.com/mysql-community-release-el7.rpm
+yum install mysql-community-server -y
+
 systemctl enable mysqld
 systemctl start mysqld
 
 mysql -u root <<-EOF
-UPDATE mysql.user SET Password=PASSWORD('') WHERE User='root';
+UPDATE mysql.user SET Password=PASSWORD('asdflkjh') WHERE User='root';
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 DELETE FROM mysql.user WHERE User='';
-DROP DATABASE test;
 DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';
 FLUSH PRIVILEGES;
 EOF
 
-# php 5.6
-yum install -y php56u-cli php56u-fpm php56u-gd php56u-json php56u-mbstring php56u-mcrypt php56u-mysqlnd php56u-opcache php56u-pdo php56u-pgsql php56u-xml
-sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /etc/php-fpm.d/www.conf
+# php 7
+yum install php70u-cli php70u-fpm php70u-gd php70u-json php70u-mbstring php70u-mcrypt php70u-mysqlnd php70u-opcache php70u-pdo php70u-pgsql php70u-intl php70u-soap php70u-xml php70u-pecl-zip -y
+#sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /etc/php-fpm.d/www.conf
+sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/php.ini
+sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php.ini
 systemctl enable php-fpm
 systemctl start php-fpm
-
-# php 7
-yum --enablerepo=remi install -y php70-php-cli php70-php-fpm php70-php-gd php70-php-json php70-php-mbstring php70-php-mcrypt php70-php-mysqlnd php70-php-opcache php70-php-pdo php70-php-pgsql php70-php-xml php70-php-pecl-zip
-systemctl enable php70-php-fpm
-systemctl start php70-php-fpm
 
 # composer
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
 # nginx
-yum install -y nginx
+yum install nginx -y
 rm -rf /etc/nginx/conf.d
 ln -s /vagrant/nginx/conf.d/ /etc/nginx
 sed -i "s/sendfile[ ][ ]*on/sendfile off/" /etc/nginx/nginx.conf
@@ -62,7 +53,7 @@ systemctl enable nginx
 systemctl start nginx
 
 #redis
-yum install -y redis
+sudo yum install redis -y
 systemctl enable redis
 systemctl start redis
 
@@ -71,11 +62,11 @@ systemctl disable firewalld
 systemctl stop firewalld
 
 # vim
-yum install -y vim
+yum install vim -y
 sed -i -e "\$a\ " /etc/vimrc
 sed -i -e "\$asyntax on" /etc/vimrc
 sed -i -e "\$aset nu" /etc/vimrc
 
 # utilities
-yum install -y wget git
+yum install wget git htop net-tools -y
 
