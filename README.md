@@ -20,3 +20,6 @@ open your broswer and goto
 
 # mysql
 root password is empty
+
+# SELinux
+the bootstrap.sh will disable SELinux durning provision, please run "vagrant reload" after provision.
