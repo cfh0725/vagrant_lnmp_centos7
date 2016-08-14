@@ -1,83 +1,75 @@
-#!/bin/bash
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 
-# yum repoyum update
-yum install -y epel-release
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
 
-rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm
-rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://atlas.hashicorp.com/search.
+  config.vm.box = "centos/7"
 
-yum update -y
-yum upgrade -y
+  # Disable automatic box update checking. If you disable this, then
+  # boxes will only be checked for updates when the user runs
+  # `vagrant box outdated`. This is not recommended.
+  # config.vm.box_check_update = false
 
-# nfs
-#yum install -y nfs-utils
-#systemctl enable nfs-server
-#systemctl start nfs-server
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine. In the example below,
+  # accessing "localhost:8080" will access port 80 on the guest machine.
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
 
-# mariadb
-#yum install -y mariadb-server
-#systemctl enable mariadb
-#systemctl start mariadb
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  config.vm.network "private_network", ip: "192.168.33.10"
 
-# mysql
-rpm -ivh https://repo.mysql.com/mysql-community-release-el7-7.noarch.rpm
-yum install -y mysql-community-server
-systemctl enable mysqld
-systemctl start mysqld
+  # Create a public network, which generally matched to bridged network.
+  # Bridged networks make the machine appear as another physical device on
+  # your network.
+  # config.vm.network "public_network"
 
-mysql -u root <<-EOF
-UPDATE mysql.user SET Password=PASSWORD('') WHERE User='root';
-DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-DELETE FROM mysql.user WHERE User='';
-DROP DATABASE test;
-DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';
-FLUSH PRIVILEGES;
-EOF
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder ".", "/vagrant"
 
-# php 5.6
-yum install -y php56u-cli php56u-fpm php56u-gd php56u-json php56u-mbstring php56u-mcrypt php56u-mysqlnd php56u-opcache php56u-pdo php56u-xml php56-php-pecl-zip php56u-pecl-memcache php56u-pecl-memcached
-sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /etc/php-fpm.d/www.conf
-sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/php.ini
-sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php.ini
-systemctl enable php-fpm
-systemctl start php-fpm
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  # Example for VirtualBox:
+  #
+  config.vm.provider "virtualbox" do |vb|
+    # Display the VirtualBox GUI when booting the machine
+    vb.gui = false
 
-# php 7
-yum --enablerepo=remi install -y php70-php-cli php70-php-fpm php70-php-gd php70-php-json php70-php-mbstring php70-php-mcrypt php70-php-mysqlnd php70-php-opcache php70-php-pdo php70-php-xml php70-php-pecl-zip
-sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/opt/remi/php70/php.ini
-sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/opt/remi/php70/php.ini
-systemctl enable php70-php-fpm
-systemctl start php70-php-fpm
+    # Customize the amount of memory on the VM:
+    vb.memory = "2048"
+  end
+  #
+  # View the documentation for the provider you are using for more
+  # information on available options.
 
-# composer
-curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
+  # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
+  # such as FTP and Heroku are also available. See the documentation at
+  # https://docs.vagrantup.com/v2/push/atlas.html for more information.
+  # config.push.define "atlas" do |push|
+  #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
+  # end
 
-# redis
-yum install -y redis
-systemctl enable redis
-systemctl start redis
+  # Enable provisioning with a shell script. Additional provisioners such as
+  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+  # documentation for more information about their specific syntax and use.
+  # config.vm.provision "shell", inline: <<-SHELL
+  #   sudo apt-get update
+  #   sudo apt-get install -y apache2
+  # SHELL
 
-# nginx
-yum install -y nginx
-rm -rf /etc/nginx/conf.d
-ln -s /vagrant/nginx/conf.d/ /etc/nginx
-sed -i "s/sendfile[ ][ ]*on/sendfile off/" /etc/nginx/nginx.conf
-systemctl enable nginx
-systemctl start nginx
+  config.vm.provision "shell", path: "bootstrap.sh"
 
-# vim
-yum install -y vim
-sed -i -e "\$a\ " /etc/vimrc
-sed -i -e "\$asyntax on" /etc/vimrc
-sed -i -e "\$aset nu" /etc/vimrc
-
-# utilities
-yum install -y wget git htop net-tools vim
-
-# disable firewall
-systemctl disable firewalld
-systemctl stop firewalld
-
-# disable selinux
-setenforce 0
+end
