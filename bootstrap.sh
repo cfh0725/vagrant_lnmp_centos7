@@ -4,7 +4,7 @@
 yum install -y epel-release
 
 rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm
-rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
 yum update -y
 yum upgrade -y
@@ -76,9 +76,8 @@ sed -i -e "\$aset nu" /etc/vimrc
 yum install -y wget git htop net-tools vim
 
 # disable firewall
-#systemctl disable firewalld
-#systemctl stop firewalld
+systemctl disable firewalld
+systemctl stop firewalld
 
 # disable selinux
-#sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
-#reboot
+setenforce 0
