@@ -47,7 +47,7 @@ FLUSH PRIVILEGES;
 EOF
 
 # php 5.4
-#yum --enablerepo=remi install php54-php-cli php54-php-fpm php54-php-gd php54-php-json php54-php-mbstring php54-php-mcrypt php54-php-mysqlnd php54-php-opcache php54-php-pdo php54-php-pgsql php54-php-xml php54-phpphp-pecl-zip php54-php-pecl-memcache php54-php-pecl-memcached -y
+#yum --enablerepo=remi install php54-php-cli php54-php-fpm php54-php-gd php54-php-json php54-php-mbstring php54-php-mcrypt php54-php-mysqlnd php54-php-opcache php54-php-pdo php54-php-xml php54-phpphp-pecl-zip php54-php-pecl-memcache php54-php-pecl-memcached -y
 #sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9002/" /opt/remi/php54/root/etc/php-fpm.d/www.conf
 #sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /opt/remi/php54/root/etc/php.ini
 #sed -i "s/memory_limit = 128M/memory_limit = 512M/" /opt/remi/php54/root/etc/php.ini
