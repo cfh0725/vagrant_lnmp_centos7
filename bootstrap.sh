@@ -35,7 +35,7 @@ FLUSH PRIVILEGES;
 EOF
 
 # php 5.6
-yum install -y php56u-cli php56u-fpm php56u-gd php56u-json php56u-mbstring php56u-mcrypt php56u-mysqlnd php56u-opcache php56u-pdo php56u-xml php56-php-pecl-zip php56u-pecl-memcache php56u-pecl-memcached
+yum install -y php56u-cli php56u-fpm php56u-gd php56u-json php56u-mbstring php56u-mcrypt php56u-mysqlnd php56u-opcache php56u-pdo php56u-xml php56-php-pecl-zip
 sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /etc/php-fpm.d/www.conf
 sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/php.ini
 sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php.ini
