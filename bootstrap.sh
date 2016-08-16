@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# disable firewall
+systemctl disable firewalld
+systemctl stop firewalld
+
+# disable selinux
+setenforce 0
+
 # yum repoyum update
 yum install -y epel-release
 
@@ -87,10 +94,3 @@ sed -i -e "\$aset nu" /etc/vimrc
 
 # utilities
 yum install -y wget git htop net-tools vim
-
-# disable firewall
-systemctl disable firewalld
-systemctl stop firewalld
-
-# disable selinux
-setenforce 0
