@@ -14,6 +14,11 @@ yum upgrade -y
 #systemctl enable nfs-server
 #systemctl start nfs-server
 
+# memcached
+#yum install memcached
+#systemctl enable memcached
+#systemctl start memcached
+
 # mariadb
 #yum install -y mariadb-server
 #systemctl enable mariadb
@@ -33,6 +38,14 @@ DROP DATABASE test;
 DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';
 FLUSH PRIVILEGES;
 EOF
+
+# php 5.4
+#yum --enablerepo=remi install php54-php-cli php54-php-fpm php54-php-gd php54-php-json php54-php-mbstring php54-php-mcrypt php54-php-mysqlnd php54-php-opcache php54-php-pdo php54-php-pgsql php54-php-xml php54-phpphp-pecl-zip php54-php-pecl-memcache php54-php-pecl-memcached -y
+#sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9002/" /opt/remi/php54/root/etc/php-fpm.d/www.conf
+#sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /opt/remi/php54/root/etc/php.ini
+#sed -i "s/memory_limit = 128M/memory_limit = 512M/" /opt/remi/php54/root/etc/php.ini
+#systemctl enable php54-php-fpm
+#systemctl start php54-php-fpm
 
 # php 5.6
 yum install -y php56u-cli php56u-fpm php56u-gd php56u-json php56u-mbstring php56u-mcrypt php56u-mysqlnd php56u-opcache php56u-pdo php56u-xml php56-php-pecl-zip
