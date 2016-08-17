@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# disable firewall
-systemctl disable firewalld
-systemctl stop firewalld
-
-# disable selinux
-setenforce 0
-
 # yum repoyum update
 yum install -y epel-release
 
@@ -93,4 +86,13 @@ sed -i -e "\$asyntax on" /etc/vimrc
 sed -i -e "\$aset nu" /etc/vimrc
 
 # utilities
-yum install -y wget git htop net-tools vim
+yum install -y wget git htop net-tools
+
+# disable firewall
+systemctl disable firewalld
+systemctl stop firewalld
+
+# disable selinux
+sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
+reboot
+
