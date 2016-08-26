@@ -1,11 +1,9 @@
 #!/bin/bash
 
-# yum repoyum update
-yum install -y epel-release
-
+# yum repo
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm
 rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-
 yum update -y
 yum upgrade -y
 
