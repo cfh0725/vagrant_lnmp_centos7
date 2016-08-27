@@ -38,7 +38,7 @@ FLUSH PRIVILEGES;
 EOF
 
 # php 5.4
-#yum --enablerepo=remi install php54-php-cli php54-php-fpm php54-php-gd php54-php-json php54-php-mbstring php54-php-mcrypt php54-php-mysqlnd php54-php-opcache php54-php-pdo php54-php-xml php54-phpphp-pecl-zip php54-php-pecl-memcache php54-php-pecl-memcached -y
+#yum --enablerepo=remi install php54-php-cli php54-php-fpm php54-php-gd php54-php-intl php54-php-json php54-php-mbstring php54-php-mcrypt php54-php-mysqlnd php54-php-opcache php54-php-pdo php54-php-xml php54-phpphp-pecl-zip php54-php-pecl-memcache php54-php-pecl-memcached -y
 #sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9002/" /opt/remi/php54/root/etc/php-fpm.d/www.conf
 #sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /opt/remi/php54/root/etc/php.ini
 #sed -i "s/memory_limit = 128M/memory_limit = 512M/" /opt/remi/php54/root/etc/php.ini
@@ -46,7 +46,7 @@ EOF
 #systemctl start php54-php-fpm
 
 # php 5.6
-yum install -y php56u-cli php56u-fpm php56u-gd php56u-json php56u-mbstring php56u-mcrypt php56u-mysqlnd php56u-opcache php56u-pdo php56u-xml php56-php-pecl-zip
+yum install -y php56u-cli php56u-fpm php56u-gd php56u-intl php56u-json php56u-mbstring php56u-mcrypt php56u-mysqlnd php56u-opcache php56u-pdo php56u-xml php56-php-pecl-zip
 sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /etc/php-fpm.d/www.conf
 sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/php.ini
 sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php.ini
@@ -54,7 +54,7 @@ systemctl enable php-fpm
 systemctl start php-fpm
 
 # php 7
-yum --enablerepo=remi install -y php70-php-cli php70-php-fpm php70-php-gd php70-php-json php70-php-mbstring php70-php-mcrypt php70-php-mysqlnd php70-php-opcache php70-php-pdo php70-php-xml php70-php-pecl-zip
+yum --enablerepo=remi install -y php70-php-cli php70-php-fpm php70-php-gd php70-php-intl php70-php-json php70-php-mbstring php70-php-mcrypt php70-php-mysqlnd php70-php-opcache php70-php-pdo php70-php-xml php70-php-pecl-zip
 sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/opt/remi/php70/php.ini
 sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/opt/remi/php70/php.ini
 systemctl enable php70-php-fpm
