@@ -84,7 +84,7 @@ sed -i -e "\$asyntax on" /etc/vimrc
 sed -i -e "\$aset nu" /etc/vimrc
 
 # utilities
-yum install -y wget git htop net-tools
+yum install -y wget htop net-tools git certbot
 
 # disable firewall
 systemctl disable firewalld
