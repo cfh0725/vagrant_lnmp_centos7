@@ -42,6 +42,14 @@ DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';
 FLUSH PRIVILEGES;
 EOF
 
+# nginx
+yum install -y nginx
+rm -rf /etc/nginx/conf.d
+ln -s /vagrant/nginx/conf.d/ /etc/nginx
+sed -i "s/sendfile[ ][ ]*on/sendfile off/" /etc/nginx/nginx.conf
+systemctl enable nginx
+systemctl start nginx
+
 # php 5.4
 #yum --enablerepo=remi install php54-php-cli php54-php-fpm php54-php-gd php54-php-intl php54-php-json php54-php-mbstring php54-php-mcrypt php54-php-mysqlnd php54-php-opcache php54-php-pdo php54-php-xml php54-php-pecl-memcache php54-php-pecl-memcached php54-php-pecl-zip -y
 #sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9002/" /opt/remi/php54/root/etc/php-fpm.d/www.conf
@@ -67,14 +75,6 @@ systemctl start php70-php-fpm
 # composer
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
-
-# nginx
-yum install -y nginx
-rm -rf /etc/nginx/conf.d
-ln -s /vagrant/nginx/conf.d/ /etc/nginx
-sed -i "s/sendfile[ ][ ]*on/sendfile off/" /etc/nginx/nginx.conf
-systemctl enable nginx
-systemctl start nginx
 
 # vim
 yum install -y vim
