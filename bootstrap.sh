@@ -1,21 +1,21 @@
 #!/bin/bash
 
+# firewall
+#firewall-cmd --permanent --zone=public --add-service=http
+#firewall-cmd --reload
+systemctl disable firewalld
+systemctl stop firewalld
+
+# disable selinux
+setenforce 0
+sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
+
 # yum repo
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-rpm -Uvh https://centos7.iuscommunity.org/ius-release.rpm
-rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+rpm -Uvh http://centos7.iuscommunity.org/ius-release.rpm
 yum update -y
 yum upgrade -y
-
-# nfs
-#yum install -y nfs-utils
-#systemctl enable nfs-server
-#systemctl start nfs-server
-
-# memcached
-#yum install memcached
-#systemctl enable memcached
-#systemctl start memcached
 
 # redis
 yum install -y redis
@@ -28,7 +28,7 @@ systemctl start redis
 #systemctl start mariadb
 
 # mysql
-rpm -ivh https://repo.mysql.com/mysql-community-release-el7-7.noarch.rpm
+rpm -Uvh https://repo.mysql.com/mysql-community-release-el7-7.noarch.rpm
 yum install -y mysql-community-server
 systemctl enable mysqld
 systemctl start mysqld
@@ -49,14 +49,6 @@ ln -s /vagrant/nginx/conf.d/ /etc/nginx
 sed -i "s/sendfile[ ][ ]*on/sendfile off/" /etc/nginx/nginx.conf
 systemctl enable nginx
 systemctl start nginx
-
-# php 5.4
-#yum --enablerepo=remi install php54-php-cli php54-php-fpm php54-php-gd php54-php-intl php54-php-json php54-php-mbstring php54-php-mcrypt php54-php-mysqlnd php54-php-opcache php54-php-pdo php54-php-xml php54-php-pecl-memcache php54-php-pecl-memcached php54-php-pecl-zip -y
-#sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9002/" /opt/remi/php54/root/etc/php-fpm.d/www.conf
-#sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /opt/remi/php54/root/etc/php.ini
-#sed -i "s/memory_limit = 128M/memory_limit = 512M/" /opt/remi/php54/root/etc/php.ini
-#systemctl enable php54-php-fpm
-#systemctl start php54-php-fpm
 
 # php 5.6
 yum install -y php56u-cli php56u-fpm php56u-gd php56u-intl php56u-json php56u-mbstring php56u-mcrypt php56u-mysqlnd php56u-opcache php56u-pdo php56u-xml php56-php-pecl-zip
@@ -80,15 +72,23 @@ mv composer.phar /usr/local/bin/composer
 yum install -y vim
 sed -i -e "\$a\ " /etc/vimrc
 sed -i -e "\$asyntax on" /etc/vimrc
+sed -i -e "\$afiletype on" /etc/vimrc
+sed -i -e "\$afiletype indent on" /etc/vimrc
+sed -i -e "\$acolorscheme slate" /etc/vimrc
 sed -i -e "\$aset nu" /etc/vimrc
+sed -i -e "\$aset colorcolumn=90" /etc/vimrc
+sed -i -e "\$aset history=100" /etc/vimrc
+sed -i -e "\$aset number" /etc/vimrc
+sed -i -e "\$aset hidden" /etc/vimrc
+sed -i -e "\$aset hlsearch" /etc/vimrc
+sed -i -e "\$aset showmatch" /etc/vimrc
+sed -i -e "\$aset nowrap" /etc/vimrc
+sed -i -e "\$aset tabstop=4" /etc/vimrc
+sed -i -e "\$aset shiftwidth=4" /etc/vimrc
+sed -i -e "\$aset expandtab" /etc/vimrc
+sed -i -e "\$aset smartindent" /etc/vimrc
+sed -i -e "\$aset autoindent" /etc/vimrc
+sed -i -e "\$aautocmd BufWritePre * :%s/\s\+$//e" /etc/vimrc
 
 # utilities
-yum install -y wget htop net-tools git certbot
-
-# disable firewall
-systemctl disable firewalld
-systemctl stop firewalld
-
-# disable selinux
-sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
-reboot
+yum install -y wget htop net-tools git
