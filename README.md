@@ -22,7 +22,7 @@ open your broswer and goto
 3. http://app.dev to your project home (web root is set to "public/", you can change it in "nginx/conf.d/vhosts.conf")  
 
 # php
-1. php-fpm 7 listening on port 9000, 
+1. php-fpm 7 listening on port 9000
 2. php-fpm 5.6 listening on port 9001
 
 # nginx
