@@ -51,8 +51,6 @@ Vagrant.configure(2) do |config|
     # Customize the amount of memory on the VM:
     vb.memory = "2048"
     
-    vb.cpus = "1"
-    
     vb.name = "vagrant_nmp"
   end
   #
