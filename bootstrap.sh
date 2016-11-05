@@ -13,7 +13,6 @@ sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
 # yum repo
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-7.rpm
-rpm -Uvh http://centos7.iuscommunity.org/ius-release.rpm
 yum update -y
 yum upgrade -y
 
@@ -51,18 +50,19 @@ systemctl enable nginx
 systemctl start nginx
 
 # php 5.6
-yum install -y php56u-cli php56u-fpm php56u-gd php56u-intl php56u-json php56u-mbstring php56u-mcrypt php56u-mysqlnd php56u-opcache php56u-pdo php56u-xml php56-php-pecl-zip
-sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /etc/php-fpm.d/www.conf
+yum --enablerepo=remi,remi-php56 install -y php56-php-cli php56-php-fpm php56-php-gd php56-php-intl php56-php-json php56-php-mbstring php56-php-mcrypt php56-php-mysqlnd php56-php-opcache php56-php-pdo php56-php-xml php56-php-pecl-zip
+sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /opt/remi/php56/root/etc/php-fpm.d/www.conf
+sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /opt/remi/php56/root/etc/php.ini
+sed -i "s/memory_limit = 128M/memory_limit = 512M/" /opt/remi/php56/root/etc/php.ini
+systemctl enable php56-php-fpm
+systemctl start php56-php-fpm
+
+# php 7
+yum --enablerepo=remi,remi-php70 install -y php-cli php-fpm php-gd php-intl php-json php-mbstring php-mcrypt php-mysqlnd php-opcache php-pdo php-xml php-pecl-zip
 sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/php.ini
 sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php.ini
 systemctl enable php-fpm
 systemctl start php-fpm
-
-# php 7
-yum --enablerepo=remi install -y php70-php-cli php70-php-fpm php70-php-gd php70-php-intl php70-php-json php70-php-mbstring php70-php-mcrypt php70-php-mysqlnd php70-php-opcache php70-php-pdo php70-php-xml php70-php-pecl-zip
-sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/opt/remi/php70/php.ini
-systemctl enable php70-php-fpm
-systemctl start php70-php-fpm
 
 # composer
 curl -sS https://getcomposer.org/installer | php
