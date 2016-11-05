@@ -25,8 +25,5 @@ open your broswer and goto
 1. php-fpm 7 listening on port 9000
 2. php-fpm 5.6 listening on port 9001
 
-# nginx
-confing files are located in "conf.d" under project root
-
 # mysql
 root password is empty
