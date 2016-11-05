@@ -1,14 +1,15 @@
 # vagrant_lemp_centos7
 
-setting up a local web develop environment with centos7,php7,mysql,nginx using vagrant
+setting up a local web develop environment with centos7,php-fpm7,php-fpm5.6,nginx,mysql,redis using vagrant
 
 # requirements
-1. vagrant
+1. virtualbox
+2. vagrant
 
 # installation
 1. clone the repo  
 2. run "vagrant up" in command line  
-3. edit your hosts file add two lines:  
+3. add two lines to "/etc/hosts" on local machine 
 tool.dev    192.168.33.10  
 app.dev     192.168.33.10
 
@@ -20,6 +21,3 @@ open your broswer and goto
 
 # mysql
 root password is empty
-
-# SELinux
-the bootstrap.sh will disable SELinux durning provision, please run "vagrant reload" after provision.
