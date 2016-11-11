@@ -92,3 +92,6 @@ sed -i -e "\$aautocmd BufWritePre * :%s/\s\+$//e" /etc/vimrc
 
 # utilities
 yum install -y wget htop net-tools git
+
+# timezone
+timedatectl set-timezone Asia/Taipei
