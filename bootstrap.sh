@@ -10,7 +10,7 @@ systemctl stop firewalld
 setenforce 0
 sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
 
-# yum repo
+# add third-party yum repo
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-7.rpm
 yum update -y
@@ -26,8 +26,10 @@ systemctl start redis
 #systemctl enable mariadb
 #systemctl start mariadb
 
-# mysql
-rpm -Uvh https://repo.mysql.com/mysql-community-release-el7-7.noarch.rpm
+# mysql 5.6
+rpm -Uvh https://repo.mysql.com/mysql-community-release-el7.rpm
+# mysql 5.7
+#rpm -Uvh https://repo.mysql.com/mysql57-community-release-el7.rpm
 yum install -y mysql-community-server
 systemctl enable mysqld
 systemctl start mysqld
@@ -50,7 +52,7 @@ systemctl enable nginx
 systemctl start nginx
 
 # php 5.6
-yum --enablerepo=remi,remi-php56 install -y php56-php-cli php56-php-fpm php56-php-gd php56-php-intl php56-php-json php56-php-mbstring php56-php-mcrypt php56-php-mysqlnd php56-php-opcache php56-php-pdo php56-php-xml php56-php-pecl-zip
+yum --enablerepo=remi install -y php56-php-cli php56-php-fpm php56-php-gd php56-php-intl php56-php-json php56-php-mbstring php56-php-mcrypt php56-php-mysqlnd php56-php-opcache php56-php-pdo php56-php-xml php56-php-pecl-zip
 sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /opt/remi/php56/root/etc/php-fpm.d/www.conf
 sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /opt/remi/php56/root/etc/php.ini
 sed -i "s/memory_limit = 128M/memory_limit = 512M/" /opt/remi/php56/root/etc/php.ini
@@ -91,7 +93,8 @@ sed -i -e "\$aset autoindent" /etc/vimrc
 sed -i -e "\$aautocmd BufWritePre * :%s/\s\+$//e" /etc/vimrc
 
 # utilities
-yum install -y wget htop net-tools git
+yum install -y wget htop
 
 # timezone
 timedatectl set-timezone Asia/Taipei
+
