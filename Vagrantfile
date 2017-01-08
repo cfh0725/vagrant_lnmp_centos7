@@ -39,6 +39,7 @@ Vagrant.configure(2) do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder ".", "/vagrant", type: "nfs", mount_options:['nolock,vers=3,udp,noatime,actimeo=1']
+  config.vm.synced_folder "../projects", "/code", type: "nfs", mount_options:['nolock,vers=3,udp,noatime,actimeo=1']
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -50,8 +51,8 @@ Vagrant.configure(2) do |config|
 
     # Customize the amount of memory on the VM:
     vb.memory = "2048"
-    
-    vb.name = "vagrant_nmp"
+
+    vb.name = "vagrant_lnmp"
   end
   #
   # View the documentation for the provider you are using for more
