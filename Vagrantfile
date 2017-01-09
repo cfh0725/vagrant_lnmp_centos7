@@ -38,8 +38,8 @@ Vagrant.configure(2) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__auto: true
-  config.vm.synced_folder "../projects", "/code", type: "rsync", rsync__exclude: ".git/", rsync__auto: true
+  config.vm.synced_folder ".", "/vagrant", type: "nfs", mount_options:['nolock,vers=3,udp,noatime,actimeo=1']
+  config.vm.synced_folder "../projects", "/code", type: "nfs", mount_options:['nolock,vers=3,udp,noatime,actimeo=1']
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -52,7 +52,7 @@ Vagrant.configure(2) do |config|
     # Customize the amount of memory on the VM:
     vb.memory = "2048"
 
-    vb.name = "vagrant_lnmp"
+    vb.name = "nmp_dev"
   end
   #
   # View the documentation for the provider you are using for more
