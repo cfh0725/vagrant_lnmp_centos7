@@ -27,9 +27,9 @@ systemctl start redis
 #systemctl start mariadb
 
 # mysql 5.6
-#rpm -Uvh https://repo.mysql.com/mysql-community-release-el7.rpm
+rpm -Uvh https://repo.mysql.com/mysql-community-release-el7.rpm
 # mysql 5.7
-rpm -Uvh https://repo.mysql.com/mysql57-community-release-el7.rpm
+#rpm -Uvh https://repo.mysql.com/mysql57-community-release-el7.rpm
 yum install -y mysql-community-server
 systemctl enable mysqld
 systemctl start mysqld
@@ -38,7 +38,6 @@ mysql -u root <<-EOF
 UPDATE mysql.user SET Password=PASSWORD('') WHERE User='root';
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 DELETE FROM mysql.user WHERE User='';
-DROP DATABASE test;
 DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';
 FLUSH PRIVILEGES;
 EOF
