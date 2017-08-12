@@ -1,6 +1,6 @@
 # vagrant_lemp_centos7
 
-setting up a local web develop environment with centos7,php-fpm7,php-fpm5.6,nginx,mysql,redis using vagrant
+setting up a local web develop environment of centos,php-fpm,nginx,mysql,redis with vagrant
 
 # requirements
 1. virtualbox
