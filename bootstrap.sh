@@ -22,25 +22,23 @@ systemctl enable redis
 systemctl start redis
 
 # mariadb
-#yum install -y mariadb-server
-#systemctl enable mariadb
-#systemctl start mariadb
+yum install -y mariadb-server
+systemctl enable mariadb
+systemctl start mariadb
 
-# mysql 5.6
-rpm -Uvh https://repo.mysql.com/mysql-community-release-el7.rpm
 # mysql 5.7
 #rpm -Uvh https://repo.mysql.com/mysql57-community-release-el7.rpm
-yum install -y mysql-community-server
-systemctl enable mysqld
-systemctl start mysqld
+#yum install -y mysql-community-server
+#systemctl enable mysqld
+#systemctl start mysqld
 
-mysql -u root <<-EOF
-UPDATE mysql.user SET Password=PASSWORD('') WHERE User='root';
-DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-DELETE FROM mysql.user WHERE User='';
-DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';
-FLUSH PRIVILEGES;
-EOF
+#mysql -u root <<-EOF
+#UPDATE mysql.user SET Password=PASSWORD('') WHERE User='root';
+#DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+#DELETE FROM mysql.user WHERE User='';
+#DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';
+#FLUSH PRIVILEGES;
+#EOF
 
 # nginx
 yum install -y nginx
@@ -58,8 +56,8 @@ sed -i "s/memory_limit = 128M/memory_limit = 512M/" /opt/remi/php56/root/etc/php
 systemctl enable php56-php-fpm
 systemctl start php56-php-fpm
 
-# php 7
-yum --enablerepo=remi,remi-php71 install -y php-cli php-fpm php-gd php-intl php-json php-mbstring php-mcrypt php-mysqlnd php-opcache php-pdo php-xml php-pecl-zip
+# php 7.2
+yum --enablerepo=remi,remi-php72 install -y php-cli php-fpm php-gd php-intl php-json php-mbstring php-mcrypt php-mysqlnd php-opcache php-pdo php-xml php-pecl-zip
 sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/php.ini
 sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php.ini
 systemctl enable php-fpm
