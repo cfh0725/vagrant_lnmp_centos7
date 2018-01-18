@@ -1,2 +1,2 @@
 <?php
-It works!
+echo 'It works!';

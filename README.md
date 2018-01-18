@@ -11,8 +11,8 @@ setting up a local web develop environment of centos,php-fpm,nginx,mysql,redis w
 2. run "vagrant up" in command line
 3. add two lines to "/etc/hosts" on local machine
 <pre>
-tool.dev    192.168.33.10
-app.dev     192.168.33.10
+tool.test    192.168.33.10
+app.test     192.168.33.10
 </pre>
 
 # usage
