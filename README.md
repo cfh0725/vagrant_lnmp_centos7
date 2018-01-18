@@ -17,9 +17,9 @@ app.test     192.168.33.10
 
 # usage
 open your broswer and goto
-1. http://tool.dev/pi.php to check phpinfo
-2. http://tool.dev/adminer.php to mysql web gui (provided by https://www.adminer.org/)
-3. http://app.dev to your project home (web root is set to "public/", you can change it in "nginx/conf.d/vhosts.conf")
+1. http://tool.test/pi.php to check phpinfo
+2. http://tool.test/adminer.php to mysql web gui (provided by https://www.adminer.org/)
+3. http://app.test to your project home (web root is set to "public/", you can change it in "nginx/conf.d/vhosts.conf")
 
 # php
 1. php-fpm 7 listening on port 9000
