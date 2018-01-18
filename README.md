@@ -27,3 +27,6 @@ open your broswer and goto
 
 # mysql
 root password is empty
+
+# known issue
+if nginx alway returns default testing page, just restart nginx.
