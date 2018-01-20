@@ -22,8 +22,9 @@ open your broswer and goto
 3. http://app.test to your project home (web root is set to "public/", you can change it in "nginx/conf.d/vhosts.conf")
 
 # php
-1. php-fpm 7 listening on port 9000
-2. php-fpm 5.6 listening on port 9001
+1. php-fpm 7.2 listening on port 9000
+2. php-fpm 7.1 listening on port 9001
+3. php-fpm 5.6 listening on port 9002
 
 # mysql
 root password is empty
