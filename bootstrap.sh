@@ -32,14 +32,6 @@ systemctl start mariadb
 #systemctl enable mysqld
 #systemctl start mysqld
 
-#mysql -u root <<-EOF
-#UPDATE mysql.user SET Password=PASSWORD('') WHERE User='root';
-#DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-#DELETE FROM mysql.user WHERE User='';
-#DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';
-#FLUSH PRIVILEGES;
-#EOF
-
 # nginx
 yum install -y nginx
 rm -rf /etc/nginx/conf.d
@@ -48,20 +40,28 @@ sed -i "s/sendfile[ ][ ]*on/sendfile off/" /etc/nginx/nginx.conf
 systemctl enable nginx
 systemctl start nginx
 
-# php 5.6
-yum --enablerepo=remi install -y php56-php-cli php56-php-fpm php56-php-gd php56-php-intl php56-php-json php56-php-mbstring php56-php-mcrypt php56-php-mysqlnd php56-php-opcache php56-php-pdo php56-php-xml php56-php-pecl-zip
-sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /opt/remi/php56/root/etc/php-fpm.d/www.conf
-sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /opt/remi/php56/root/etc/php.ini
-sed -i "s/memory_limit = 128M/memory_limit = 512M/" /opt/remi/php56/root/etc/php.ini
-systemctl enable php56-php-fpm
-systemctl start php56-php-fpm
-
 # php 7.2
 yum --enablerepo=remi,remi-php72 install -y php-cli php-fpm php-gd php-intl php-json php-mbstring php-mcrypt php-mysqlnd php-opcache php-pdo php-xml php-pecl-zip
 sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/php.ini
 sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php.ini
 systemctl enable php-fpm
 systemctl start php-fpm
+
+# php 7.1
+yum --enablerepo=remi install -y php71-php-cli php71-php-fpm php71-php-gd php71-php-intl php71-php-json php71-php-mbstring php71-php-mcrypt php71-php-mysqlnd php71-php-opcache php71-php-pdo php71-php-xml php71-php-pecl-zip
+sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /opt/remi/php71/root/etc/php-fpm.d/www.conf
+sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /opt/remi/php71/root/etc/php.ini
+sed -i "s/memory_limit = 128M/memory_limit = 512M/" /opt/remi/php71/root/etc/php.ini
+systemctl enable php71-php-fpm
+systemctl start php71-php-fpm
+
+# php 5.6
+yum --enablerepo=remi install -y php56-php-cli php56-php-fpm php56-php-gd php56-php-intl php56-php-json php56-php-mbstring php56-php-mcrypt php56-php-mysqlnd php56-php-opcache php56-php-pdo php56-php-xml php56-php-pecl-zip
+sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9002/" /opt/remi/php56/root/etc/php-fpm.d/www.conf
+sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /opt/remi/php56/root/etc/php.ini
+sed -i "s/memory_limit = 128M/memory_limit = 512M/" /opt/remi/php56/root/etc/php.ini
+systemctl enable php56-php-fpm
+systemctl start php56-php-fpm
 
 # composer
 curl -sS https://getcomposer.org/installer | php
