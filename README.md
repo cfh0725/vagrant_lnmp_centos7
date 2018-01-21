@@ -23,8 +23,7 @@ open your broswer and goto
 
 # php
 1. php-fpm 7.2 listening on port 9000
-2. php-fpm 7.1 listening on port 9001
-3. php-fpm 5.6 listening on port 9002
+2. php-fpm 5.6 listening on port 9001
 
 # mysql
 root password is empty
