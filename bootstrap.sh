@@ -59,6 +59,14 @@ systemctl start php56-php-fpm
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
+# ntp
+yum install ntp -y
+systemctl enable ntpd
+systemctl start ntpd
+
+# timezone
+timedatectl set-timezone Asia/Taipei
+
 # vim
 yum install -y vim
 sed -i -e "\$a\ " /etc/vimrc
@@ -83,7 +91,3 @@ sed -i -e "\$aautocmd BufWritePre * :%s/\s\+$//e" /etc/vimrc
 
 # utilities
 yum install -y wget htop
-
-# timezone
-timedatectl set-timezone Asia/Taipei
-
