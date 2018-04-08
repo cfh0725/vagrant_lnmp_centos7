@@ -59,14 +59,6 @@ systemctl start php56-php-fpm
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
-# node.js
-curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
-yum install -y nodejs
-
-# yarn
-curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
-yum install -y yarn
-
 # ntp
 yum install ntp -y
 systemctl enable ntpd
