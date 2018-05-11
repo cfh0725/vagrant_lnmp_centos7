@@ -56,9 +56,25 @@ sed -i "s/memory_limit = 128M/memory_limit = 512M/" /opt/remi/php56/root/etc/php
 systemctl enable php56-php-fpm
 systemctl start php56-php-fpm
 
+# php 7.0
+# yum --enablerepo=remi,remi-php70 install -y php70-php-cli php70-php-fpm php70-php-gd php70-php-intl php70-php-json php70-php-mbstring php70-php-mcrypt php70-php-mysqlnd php70-php-opcache php70-php-pdo php70-php-xml php70-php-pecl-zip
+# sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9002/" /etc/opt/remi/php70/php-fpm.d/www.conf
+# sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/opt/remi/php70/php.ini
+# sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/opt/remi/php70/php.ini
+# systemctl enable php70-php-fpm
+# systemctl start php70-php-fpm
+
 # composer
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
+
+# # node.js
+# curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
+# yum install -y nodejs
+
+# # yarn
+# curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
+# yum install -y yarn
 
 # ntp
 yum install ntp -y
