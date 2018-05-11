@@ -22,7 +22,8 @@ systemctl enable redis
 systemctl start redis
 
 # mariadb
-yum install -y mariadb-server
+curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
+yum install -y MariaDB-server MariaDB-client
 systemctl enable mariadb
 systemctl start mariadb
 
