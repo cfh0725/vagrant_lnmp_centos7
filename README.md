@@ -1,6 +1,6 @@
 # vagrant_lemp_centos7
 
-setting up a local web develop environment of centos,php-fpm,nginx,mysql,redis with vagrant
+setting up a local web develop environment of centos,php-fpm,nginx,mariadb,redis with vagrant
 
 # requirements
 1. virtualbox
@@ -25,7 +25,7 @@ open your broswer and goto
 1. php-fpm 7.2 listening on port 9000
 2. php-fpm 5.6 listening on port 9001
 
-# mysql
+# mariadb
 root password is empty
 
 # known issue
