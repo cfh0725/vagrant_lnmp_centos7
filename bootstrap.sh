@@ -107,4 +107,4 @@ sed -i -e "\$aset autoindent" /etc/vimrc
 sed -i -e "\$aautocmd BufWritePre * :%s/\s\+$//e" /etc/vimrc
 
 # utilities
-yum install -y wget htop
+yum install -y wget htop lftp
