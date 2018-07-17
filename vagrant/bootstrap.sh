@@ -24,14 +24,25 @@ systemctl start redis
 # mariadb
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 yum install -y MariaDB-server MariaDB-client
+
+# if /data/mysql not exist, create it with default mysql data
+if [! -d "/data/mysql" ]; then
+    sudo cp -r /var/lib/mysql /data/mysql
+fi
+sudo rm -rf /var/lib/mysql
+sudo ln -s /data/mysql /var/lib/mysql
+
 systemctl enable mariadb
 systemctl start mariadb
 
-# mysql 5.7
-#rpm -Uvh https://repo.mysql.com/mysql57-community-release-el7.rpm
-#yum install -y mysql-community-server
-#systemctl enable mysqld
-#systemctl start mysqld
+mysql -u root <<EOF
+    UPDATE mysql.user SET Password=PASSWORD('show_me_the_data') WHERE User='root';
+    DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+    DELETE FROM mysql.user WHERE User='';
+    DROP DATABASE test;
+    DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';
+    FLUSH PRIVILEGES;
+EOF
 
 # nginx
 yum install -y nginx
@@ -68,21 +79,10 @@ systemctl start php56-php-fpm
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
-# # node.js
-# curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
-# yum install -y nodejs
-
-# # yarn
-# curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
-# yum install -y yarn
-
 # ntp
 yum install ntp -y
 systemctl enable ntpd
 systemctl start ntpd
-
-# timezone
-timedatectl set-timezone Asia/Taipei
 
 # vim
 yum install -y vim
@@ -107,4 +107,4 @@ sed -i -e "\$aset autoindent" /etc/vimrc
 sed -i -e "\$aautocmd BufWritePre * :%s/\s\+$//e" /etc/vimrc
 
 # utilities
-yum install -y wget htop git
+yum install -y wget htop
