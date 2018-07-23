@@ -56,6 +56,12 @@ systemctl start nginx
 yum --enablerepo=remi,remi-php72 install -y php-cli php-fpm php-gd php-intl php-json php-mbstring php-mcrypt php-mysqlnd php-opcache php-pdo php-pecl-xdebug php-xml php-pecl-zip
 sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/php.ini
 sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php.ini
+
+sed -i -e "\$a\ " /etc/php.ini
+sed -i -e "\$a[xdebug]" /etc/php.ini
+sed -i -e "\$axdebug.remote_enable=1" /etc/php.ini
+sed -i -e "\$axdebug.remote_autostart=1" /etc/php.ini
+
 systemctl enable php-fpm
 systemctl start php-fpm
 
@@ -64,6 +70,12 @@ yum --enablerepo=remi install -y php56-php-cli php56-php-fpm php56-php-gd php56-
 sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9001/" /opt/remi/php56/root/etc/php-fpm.d/www.conf
 sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /opt/remi/php56/root/etc/php.ini
 sed -i "s/memory_limit = 128M/memory_limit = 512M/" /opt/remi/php56/root/etc/php.ini
+
+sed -i -e "\$a\ " /opt/remi/php56/root/etc/php.ini
+sed -i -e "\$a[xdebug]" /opt/remi/php56/root/etc/php.ini
+sed -i -e "\$axdebug.remote_enable=1" /opt/remi/php56/root/etc/php.ini
+sed -i -e "\$axdebug.remote_autostart=1" /opt/remi/php56/root/etc/php.ini
+
 systemctl enable php56-php-fpm
 systemctl start php56-php-fpm
 
@@ -72,6 +84,12 @@ systemctl start php56-php-fpm
 # sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9002/" /etc/opt/remi/php70/php-fpm.d/www.conf
 # sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/opt/remi/php70/php.ini
 # sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/opt/remi/php70/php.ini
+
+#sed -i -e "\$a\ " /etc/opt/remi/php70/php.ini
+#sed -i -e "\$a[xdebug]" /etc/opt/remi/php70/php.ini
+#sed -i -e "\$axdebug.remote_enable=1" /etc/opt/remi/php70/php.ini
+#sed -i -e "\$axdebug.remote_autostart=1" /etc/opt/remi/php70/php.ini
+
 # systemctl enable php70-php-fpm
 # systemctl start php70-php-fpm
 
