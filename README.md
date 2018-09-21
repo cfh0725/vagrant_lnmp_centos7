@@ -28,7 +28,7 @@ open your broswer and goto
 
 # mariadb
 1. root password is "show_me_the_data"
-2. data stores in "databases/mysql/data"
+2. data stores in "databases/mysql"
 
 # known issue
 if nginx always returns default testing page, just restart nginx.
