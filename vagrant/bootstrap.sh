@@ -29,7 +29,6 @@ yum install -y MariaDB-server MariaDB-client
 if [! -d "/data/mysql" ]; then
     sudo cp -r /var/lib/mysql /data/mysql
 fi
-sudo rm -rf /var/lib/mysql
 sudo ln -s /data/mysql /var/lib/mysql
 
 systemctl enable mariadb
