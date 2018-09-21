@@ -27,9 +27,10 @@ yum install -y MariaDB-server MariaDB-client
 
 # if /data/mysql not exist, create it with default mysql data
 if [! -d "/data/mysql" ]; then
-    sudo cp -r /var/lib/mysql /data/mysql
+    cp -r /var/lib/mysql /data/mysql
 fi
-sudo ln -s /data/mysql /var/lib/mysql
+rm -rf /var/lib/mysql
+ln -s /data/mysql /var/lib/mysql
 
 systemctl enable mariadb
 systemctl start mariadb
