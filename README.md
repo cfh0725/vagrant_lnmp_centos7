@@ -23,12 +23,11 @@ open your broswer and goto
 3. http://app.test to your project home (web root is set to "projects/app/", you can change it in "nginx/conf.d/vhosts.conf")
 
 # php
-1. php-fpm 7.2 listening on port 9000
+1. php-fpm 7.3 listening on port 9000
 2. php-fpm 5.6 listening on port 9001
 
 # mariadb
 1. root password is "show_me_the_data"
-2. data stores in "databases/mysql"
 
 # known issue
 if nginx always returns default testing page, just restart nginx.

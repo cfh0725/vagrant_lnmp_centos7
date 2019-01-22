@@ -25,13 +25,6 @@ systemctl start redis
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 yum install -y MariaDB-server MariaDB-client
 
-# if /data/mysql not exist, create it with default mysql data
-if [! -d "/data/mysql" ]; then
-    cp -r /var/lib/mysql /data/mysql
-fi
-rm -rf /var/lib/mysql
-ln -s /data/mysql /var/lib/mysql
-
 systemctl enable mariadb
 systemctl start mariadb
 
@@ -52,8 +45,8 @@ sed -i "s/sendfile[ ][ ]*on/sendfile off/" /etc/nginx/nginx.conf
 systemctl enable nginx
 systemctl start nginx
 
-# php 7.2
-yum --enablerepo=remi,remi-php72 install -y php-cli php-fpm php-gd php-intl php-json php-mbstring php-mcrypt php-mysqlnd php-opcache php-pdo php-xml php-pecl-zip
+# php 7.3
+yum --enablerepo=remi,remi-php73 install -y php-cli php-fpm php-gd php-intl php-json php-mbstring php-mcrypt php-mysqlnd php-opcache php-pdo php-xml php-pecl-zip
 sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/php.ini
 sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php.ini
 
