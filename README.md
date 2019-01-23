@@ -1,4 +1,4 @@
-# vagrant_lemp_centos7
+# vagrant_lnmp_centos7
 
 setting up a local web develop environment of centos,php-fpm,nginx,mariadb,redis with vagrant
 
