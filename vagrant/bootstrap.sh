@@ -87,19 +87,26 @@ sed -i -e "\$asyntax on" /etc/vimrc
 sed -i -e "\$afiletype on" /etc/vimrc
 sed -i -e "\$afiletype indent on" /etc/vimrc
 sed -i -e "\$acolorscheme slate" /etc/vimrc
-sed -i -e "\$aset nu" /etc/vimrc
+sed -i -e "\$aset encoding=utf-8" /etc/vimrc
+sed -i -e "\$aset fileencodings=utf-8,cp950" /etc/vimrc
+sed -i -e "\$aset backspace=2" /etc/vimrc
 sed -i -e "\$aset colorcolumn=90" /etc/vimrc
-sed -i -e "\$aset history=100" /etc/vimrc
+sed -i -e "\$aset history=200" /etc/vimrc
+sed -i -e "\$aset tabstop=4" /etc/vimrc
+sed -i -e "\$aset shiftwidth=4" /etc/vimrc
 sed -i -e "\$aset number" /etc/vimrc
 sed -i -e "\$aset hidden" /etc/vimrc
 sed -i -e "\$aset hlsearch" /etc/vimrc
 sed -i -e "\$aset showmatch" /etc/vimrc
 sed -i -e "\$aset nowrap" /etc/vimrc
-sed -i -e "\$aset tabstop=4" /etc/vimrc
-sed -i -e "\$aset shiftwidth=4" /etc/vimrc
 sed -i -e "\$aset expandtab" /etc/vimrc
 sed -i -e "\$aset smartindent" /etc/vimrc
 sed -i -e "\$aset autoindent" /etc/vimrc
+sed -i -e "\$aset ignorecase" /etc/vimrc
+sed -i -e "\$aset ruler" /etc/vimrc
+sed -i -e "\$aset incsearch" /etc/vimrc
+sed -i -e "\$aset confirm" /etc/vimrc
+sed -i -e "\$aset cursorline" /etc/vimrc
 sed -i -e "\$aautocmd BufWritePre * :%s/\s\+$//e" /etc/vimrc
 
 # utilities
