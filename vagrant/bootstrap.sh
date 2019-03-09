@@ -75,11 +75,6 @@ systemctl start php56-php-fpm
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
-# ntp
-yum install ntp -y
-systemctl enable ntpd
-systemctl start ntpd
-
 # vim
 yum install -y vim
 sed -i -e "\$a\ " /etc/vimrc
