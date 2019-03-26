@@ -105,4 +105,4 @@ sed -i -e "\$aset cursorline" /etc/vimrc
 sed -i -e "\$aautocmd BufWritePre * :%s/\s\+$//e" /etc/vimrc
 
 # utilities
-yum install -y wget htop zip unzip
+yum install -y wget htop zip unzip git tig
