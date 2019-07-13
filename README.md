@@ -11,7 +11,7 @@ setting up a local web develop environment of centos,php-fpm,nginx,mariadb,redis
 2. cd to vagrant/
 3. run "vagrant up" at host to booting up guest vm
 4. run "vagrant ssh" at host to ssh into guest os
-5. run "mysql_secure_installation" at guest to setting up mariadb
+5. run "sudo mysql_secure_installation" at guest to setting up mariadb
 6. add two lines to "/etc/hosts" on host
 <pre>
 tool.test    192.168.33.10
