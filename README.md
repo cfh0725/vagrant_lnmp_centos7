@@ -9,8 +9,10 @@ setting up a local web develop environment of centos,php-fpm,nginx,mariadb,redis
 # installation
 1. clone the repo
 2. cd to vagrant/
-3. run "vagrant up" in command line
-4. add two lines to "/etc/hosts" on local host machine
+3. run "vagrant up" at host to booting up guest vm
+4. run "vagrant ssh" at host to ssh into guest os
+5. run "mysql_secure_installation" at guest to setting up mariadb
+6. add two lines to "/etc/hosts" on host
 <pre>
 tool.test    192.168.33.10
 app.test     192.168.33.10
@@ -25,9 +27,6 @@ open your broswer and goto
 # php
 1. php-fpm 7.3 listening on port 9073
 2. php-fpm 5.6 listening on port 9056
-
-# mariadb
-1. root password is "show_me_the_data"
 
 # known issue
 if nginx always returns default testing page, just restart nginx.
