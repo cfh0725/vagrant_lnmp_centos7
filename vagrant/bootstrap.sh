@@ -24,14 +24,6 @@ systemctl start redis
 yum install -y mariadb-server mariadb-client
 systemctl enable mariadb
 systemctl start mariadb
-mysql -u root <<EOF
-    UPDATE mysql.user SET Password=PASSWORD('show_me_the_data') WHERE User='root';
-    DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-    DELETE FROM mysql.user WHERE User='';
-    DROP DATABASE test;
-    DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';
-    FLUSH PRIVILEGES;
-EOF
 
 # nginx
 yum install -y nginx
