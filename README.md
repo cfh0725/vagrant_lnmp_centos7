@@ -28,7 +28,6 @@ open your broswer and goto
 
 # mariadb
 1. root password is "SHOW_ME_THE_DATA"
-2. datadir is set to host's "data/mysql" folder
 
 # known issue
 if nginx always returns default testing page, just restart nginx.
