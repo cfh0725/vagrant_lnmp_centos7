@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# firewall
+# disable firewall
 systemctl disable firewalld
 systemctl stop firewalld
 
@@ -10,7 +10,6 @@ sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
 
 # third party yum repository
 yum install -y epel-release
-# yum install -y centos-release-scl
 rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-7.rpm
 yum update -y
 yum upgrade -y
@@ -25,6 +24,15 @@ yum install -y mariadb-server mariadb-client
 systemctl enable mariadb
 systemctl start mariadb
 
+mysql --user=root <<_EOF_
+UPDATE mysql.user SET Password=PASSWORD('SHOW_ME_THE_DATA') WHERE User='root';
+DELETE FROM mysql.user WHERE User='';
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+DROP DATABASE IF EXISTS test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+FLUSH PRIVILEGES;
+_EOF_
+
 # nginx
 yum install -y nginx
 rm -rf /etc/nginx/conf.d
@@ -34,7 +42,7 @@ systemctl enable nginx
 systemctl start nginx
 
 # php 7.3
-yum --enablerepo=remi,remi-php73 install -y php-cli php-fpm php-gd php-intl php-json php-mbstring php-mcrypt php-mysqlnd php-opcache php-pdo php-xml php-pecl-zip
+yum --enablerepo=remi-php73 install -y php-cli php-fpm php-gd php-intl php-json php-mbstring php-mcrypt php-mysqlnd php-opcache php-pdo php-xml php-pecl-zip
 sed -i "s/listen = 127.0.0.1:9000/listen = 127.0.0.1:9073/" /etc/php-fpm.d/www.conf
 sed -i "s/;date.timezone =/date.timezone = Asia\/Taipei/" /etc/php.ini
 sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php.ini
